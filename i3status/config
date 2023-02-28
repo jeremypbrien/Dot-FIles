@@ -1,0 +1,52 @@
+general {
+  colors = true
+  interval = 1
+  color_good = "#2AA198"
+  color_bad = "#586E75"
+  color_degraded = "#DC322F"
+}
+
+order += "ethernet _first_"
+order += "cpu_usage"
+order += "cpu_temperature 0"
+order += "battery 0"
+order += "memory"
+order += "volume master"
+order += "tztime local"
+
+cpu_temperature 0 {
+  format = " CPU %degrees °C "
+  path = "/dev/cpu_temp"
+}
+
+battery 0 {
+  format = " GPRO %percentage "
+  format_down = " GPRO OFF "
+  path = "/dev/gpro_battery/uevent"
+  integer_battery_capacity = true
+}
+
+ethernet _first_ {
+  format_up = " LAN %ip "
+  format_down = " LAN "
+}
+
+cpu_usage {
+  format = " CPU %usage "
+}
+
+memory {
+  format = " %used / %total "
+}
+
+volume master {
+  format = " VOLUME %volume "
+  format_muted = " VOLUME %volume "
+  device = "default"
+  mixer = "Master"
+  mixer_idx = 0
+}
+
+tztime local {
+  format = " %Y-%m-%d %H:%M:%S "
+}
